@@ -14,7 +14,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
         "accessToken": "ZWU2OGI3ZDgtZjgwMi00MGEwLWI0YTEtYmNiMTI0M2Y2MzY3fHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
         "showUsageWarnings": true
@@ -35,13 +40,21 @@
     },
     "angular-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["angular-app"]
+      "implicitDependencies": [
+        "angular-app"
+      ]
     },
     "lambda": {
       "tags": []
     },
     "node-api": {
       "tags": []
+    },
+    "java-api": {
+      "tags": []
     }
-  }
+  },
+  "plugins": [
+    "@nxrocks/nx-spring-boot"
+  ]
 }

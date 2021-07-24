@@ -14,11 +14,15 @@ export class AppComponent {
   constructor(
     private httpClient: HttpClient,
     private elasticRumService: ElasticRumService
-  ) {
-    this.httpClient.get(`${environment.BANK_API_BASE}/account`).subscribe();
-  }
+  ) { }
 
   public confirmBankTransfer(): void {
-    this.httpClient.post(`${environment.BANK_API_BASE}/account/transfer`, null).subscribe();
+    this.httpClient.post(`${environment.BANK_API_BASE}/account`, null).subscribe(() => {
+
+      }, (err) => {
+        console.error('error', err);
+        throw Error('Cannot load accounts!');
+      }
+    );
   }
 }

@@ -4,7 +4,16 @@
 
 - prepared (clean) Elastic stack: ElasticSearch + APM + Kibana
 - Running OpenTelemetry collector
+- Install Node / NPM / JAVA (11+) / PostgreSQL
 - Installed Example Projects
+
+
+### Build demo
+
+- Install NX ``npm i -g nx``
+- Initialize project ``npm i``
+- Build angular / node API ``npm i``
+- Build JAVA API ``nx run java-api:buildJar``
 
 ### Step to start demo
 
@@ -12,7 +21,9 @@
 
 
 - start angular app ``nx run angular-app:serve``
-- start node API ``OTEL_SERVICE_NAME=example-middleware-node-api nx run node-api:serve``
+- start node API ``OTEL_SERVICE_NAME=example-security-gateway nx run node-api:serve``
+- start java API ``java -javaagent:opentelemetry-javaagent-all.jar -Dotel.resource.attributes=service.name=example-core-api -Dotel.traces.exporter=otlp -jar build/libs/example-projects-0.0.1-SNAPSHOT.jar``
+  (can be also run without OpenTelemetry agent ``nx run java-api:serve``)
 - start local OpenTelemetry collector
 - start ElasticSearch / Kibana / APM
 

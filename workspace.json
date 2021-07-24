@@ -9,7 +9,9 @@
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/angular-app",
             "index": "apps/angular-app/src/index.html",
@@ -21,7 +23,9 @@
               "apps/angular-app/src/favicon.ico",
               "apps/angular-app/src/assets"
             ],
-            "styles": ["apps/angular-app/src/styles.scss"],
+            "styles": [
+              "apps/angular-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -86,7 +90,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/angular-app"],
+          "outputs": [
+            "coverage/apps/angular-app"
+          ],
           "options": {
             "jestConfig": "apps/angular-app/jest.config.js",
             "passWithNoTests": true
@@ -115,7 +121,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/angular-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/angular-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -127,12 +135,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/lambda",
             "main": "apps/lambda/src/main.ts",
             "tsConfig": "apps/lambda/tsconfig.app.json",
-            "assets": ["apps/lambda/src/assets"]
+            "assets": [
+              "apps/lambda/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -157,12 +169,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/lambda/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/lambda/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/lambda"],
+          "outputs": [
+            "coverage/apps/lambda"
+          ],
           "options": {
             "jestConfig": "apps/lambda/jest.config.js",
             "passWithNoTests": true
@@ -177,12 +193,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/node-api",
             "main": "apps/node-api/src/main.ts",
             "tsConfig": "apps/node-api/tsconfig.app.json",
-            "assets": ["apps/node-api/src/assets"]
+            "assets": [
+              "apps/node-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -207,15 +227,74 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/node-api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/node-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/node-api"],
+          "outputs": [
+            "coverage/apps/node-api"
+          ],
           "options": {
             "jestConfig": "apps/node-api/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "java-api": {
+      "root": "apps/java-api",
+      "sourceRoot": "apps/java-api/src",
+      "projectType": "application",
+      "targets": {
+        "run": {
+          "executor": "@nxrocks/nx-spring-boot:run",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "serve": {
+          "executor": "@nxrocks/nx-spring-boot:serve",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "test": {
+          "executor": "@nxrocks/nx-spring-boot:test",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "clean": {
+          "executor": "@nxrocks/nx-spring-boot:clean",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "buildJar": {
+          "executor": "@nxrocks/nx-spring-boot:buildJar",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "buildWar": {
+          "executor": "@nxrocks/nx-spring-boot:buildWar",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "buildImage": {
+          "executor": "@nxrocks/nx-spring-boot:buildImage",
+          "options": {
+            "root": "apps/java-api"
+          }
+        },
+        "buildInfo": {
+          "executor": "@nxrocks/nx-spring-boot:buildInfo",
+          "options": {
+            "root": "apps/java-api"
           }
         }
       }

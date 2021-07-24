@@ -1,34 +1,26 @@
-import { environment } from './environments/environment';
-
+// wrapper MUST be required as soon as possible
 require('./wrapper');
-
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 
 import * as express from 'express';
 import * as cors from 'cors';
 
+import { environment } from './environments/environment';
+
 const fetch = require('node-fetch');
 const app = express();
 
-
 app.use(cors());
 
-app.get(`${environment.API_BASE}/account`, (req, res) => {
-  res.send({ message: 'Welcome to node-api!' });
-});
-
-app.post(`${environment.API_BASE}/account/transfer`, (req, res) => {
+app.post(`${environment.API_BASE}/account`, (req, res) => {
   fetch(`${environment.LAMBDA_API_BASE}/`)
-    // .then((res: any) => res.json())
-    .then((json: any) => console.log(json))
-    .then(() => res.send({ message: 'Welcome to node-api!' }))
+    .then(() => fetch(`${environment.CORE_API_BASE}/account`))
+    .then((res: any) => res.json())
+    // .then(() => res.status(500).send({ 'error': 'Not working!' }));
+    .then((data) => res.send(data));
 });
 
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
-  console.log(`Listening with prefix ${environment.API_BASE}`);
+  console.log(`Listening on port ${port}, with prefix ${environment.API_BASE}`);
 });
 server.on('error', console.error);
