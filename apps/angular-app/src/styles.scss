@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body {
+  margin: 0 auto;
+  max-width: 1200px;
+  background-color: #F2F3F7; // TODO shared class
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #676769; // TODO shared class
+}
+
+a {
+  text-decoration: none;
+  color: #676769; // TODO shared class
+  &:hover {
+    color: #ff4081; // TODO shared class
+    text-decoration: underline;
+  }
+}

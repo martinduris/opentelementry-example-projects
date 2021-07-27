@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
-import { init as initApm } from '@elastic/apm-rum';
+import { ApmBase, init as initApm } from '@elastic/apm-rum';
 
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ElasticRumService {
+export class ElasticRumService implements ErrorHandler {
+
+  apm: ApmBase | undefined;
 
   constructor() {
-    initApm({
+    this.apm = initApm({
 
       // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
       serviceName: 'example-internet-banking',
@@ -27,6 +30,24 @@ export class ElasticRumService {
         environment.BANK_API_DOMAIN
       ]
     });
+  }
+
+  handleError(err: any) {
+    if (this.apm) {
+      const error = err.originalError || err;
+      if (error instanceof HttpErrorResponse) {
+        const message = `${error.status} ${error.url}`;
+        this.apm.captureError(message);
+      } else if (!(error instanceof HttpErrorResponse) && !(error instanceof Error)) {
+        this.apm.captureError(JSON.stringify(error));
+      } else {
+        this.apm.captureError(error);
+      }
+
+      console.error(err);
+    }
+
+    throw err;
   }
 
 }

@@ -10,7 +10,16 @@ import {
     envDetector,
     processDetector,
 } from '@opentelemetry/resources';
+import { NodeTracerConfig } from '@opentelemetry/node';
+import { SDKRegistrationConfig } from '@opentelemetry/tracing';
 const { SimpleSpanProcessor } = require('@opentelemetry/tracing');
+
+declare global {
+  function configureTracer(defaultConfig: NodeTracerConfig): NodeTracerConfig;
+  function configureSdkRegistration(
+    defaultSdkRegistration: SDKRegistrationConfig
+  ): SDKRegistrationConfig;
+}
 
 api.diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ALL);
 console.log('wrapper: required');
@@ -29,9 +38,13 @@ async function initializeProvider() {
         detectors: [envDetector, processDetector],
     });
 
-    const tracerProvider = new NodeTracerProvider({
-        resource
-    });
+    let config: NodeTracerConfig = {
+      resource,
+    };
+    if (typeof configureTracer === 'function') {
+      config = configureTracer(config);
+    }
+    const tracerProvider = new NodeTracerProvider(config);
     tracerProvider.addSpanProcessor(
         // new BatchSpanProcessor(
         new SimpleSpanProcessor( // BatchSpanProcessor
@@ -41,7 +54,12 @@ async function initializeProvider() {
             })
         )
     );
-    tracerProvider.register();
+
+    let sdkRegistrationConfig: SDKRegistrationConfig = {};
+    if (typeof configureSdkRegistration === 'function') {
+      sdkRegistrationConfig = configureSdkRegistration(sdkRegistrationConfig);
+    }
+    tracerProvider.register(sdkRegistrationConfig);
 
     registerInstrumentations({
         instrumentations,

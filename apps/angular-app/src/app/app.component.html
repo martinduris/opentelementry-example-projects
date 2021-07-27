@@ -1,3 +1,140 @@
-<h1>Example app</h1>
+<header class="header">
+  <div class="left">
+    <div>
+<!--      <img alt="ECorp Logo" src="assets/images/logo/logo.png"/>-->
+    </div>
+    <div>
+      <ul>
+        <li>
+          <a class="-active" title="My Accounts" href="#">My Accounts</a>
+        </li>
+        <li>
+          <a title="Transactions" href="#">Transactions</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="right">
+    <div class="status-bar">
+      <button mat-icon-button aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Mail">
+        <mat-icon>mail</mat-icon>
+      </button>
+      <button mat-icon-button matBadgeColor="accent" aria-label="Notification: active" matBadge="4">
+        <mat-icon>notifications_active</mat-icon>
+      </button>
+    </div>
 
-<button name="Confirm Bank Transfer" (click)="confirmBankTransfer()">Transfer money</button>
+    <button class="profile" mat-button aria-label="Profile: Martin Duris" name="Profile: Martin Duris">Martin Duris</button>
+
+    <button mat-icon-button aria-label="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</header>
+
+<div class="content">
+  <router-outlet></router-outlet>
+
+  <div class="row">
+    <mat-card>
+      <mat-card-header></mat-card-header>
+      <mat-card-content>
+        <button mat-raised-button color="primary" aria-label="Confirm Bank Transfer" name="Confirm Bank Transfer" (click)="confirmBankTransfer()">Transfer money</button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header></mat-card-header>
+      <mat-card-content>Wanna some money?</mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="row">
+    <mat-card class="card-bank-account">
+      <mat-card-content>
+        <div class="account-header">
+          <div class="left">
+            <span class="bank-name">Santander</span>
+            <span>86 **** **** 1748</span>
+          </div>
+          <div class="right">
+            <mat-icon>account_balance</mat-icon>
+          </div>
+        </div>
+        <div class="balance">
+          <span>12 567,17 €</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card-bank-account">
+      <mat-card-content>
+        <div class="account-header">
+          <div class="left">
+            <span class="bank-name">Wells Fargo</span>
+            <span>12 **** **** 8745</span>
+          </div>
+          <div class="right">
+            <mat-icon>account_balance</mat-icon>
+          </div>
+        </div>
+        <div class="balance">
+          <span>78 123,17 €</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card-bank-account">
+      <mat-card-content>
+        <div class="account-header">
+          <div class="left">
+            <span class="bank-name">City Bank</span>
+            <span>00 **** **** 8123</span>
+          </div>
+          <div class="right">
+            <mat-icon>account_balance</mat-icon>
+          </div>
+        </div>
+        <div class="balance">
+          <span>67,12 €</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card-bank-account">
+      <mat-card-content>
+        <div class="account-header">
+          <div class="left">
+            <span class="bank-name">Deutsche Bank</span>
+            <span>23 **** **** 8845</span>
+          </div>
+          <div class="right">
+            <mat-icon>account_balance</mat-icon>
+          </div>
+        </div>
+        <div class="balance">
+          <span>10 2567,89 €</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="row">
+    <mat-card class="transactions">
+      <mat-card-header></mat-card-header>
+      <mat-card-content>Transactions</mat-card-content>
+    </mat-card>
+    <mat-card class="to-do">
+      <mat-card-header></mat-card-header>
+      <mat-card-content>What to do?</mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <ul>
+      <li><a href="https://github.com/martinduris/opentelementry-example-projects" title="GitHub" target="_blank">GitHub</a></li>
+      <li><a href="https://github.com/open-telemetry/opentelemetry-lambda" title="OpenTelemetry Lambda" target="_blank">OpenTelemetry Lambda</a></li>
+      <li><a href="https://github.com/open-telemetry/opentelemetry-js" title="OpenTelemetry Node" target="_blank">OpenTelemetry Node</a></li>
+    </ul>
+  </div>
+</footer>
