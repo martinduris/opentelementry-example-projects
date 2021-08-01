@@ -44,7 +44,7 @@
         "angular-app"
       ]
     },
-    "lambda": {
+    "lambda-api": {
       "tags": []
     },
     "node-api": {

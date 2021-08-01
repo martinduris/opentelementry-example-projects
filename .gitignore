@@ -37,6 +37,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/apps/lambda/.build/
+/apps/lambda-api/.build/
 /example-projects.iml
 /.vscode/

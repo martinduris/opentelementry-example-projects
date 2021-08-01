@@ -129,9 +129,9 @@
         }
       }
     },
-    "lambda": {
-      "root": "apps/lambda",
-      "sourceRoot": "apps/lambda/src",
+    "lambda-api": {
+      "root": "apps/lambda-api",
+      "sourceRoot": "apps/lambda-api/src",
       "projectType": "application",
       "targets": {
         "build": {
@@ -140,11 +140,11 @@
             "{options.outputPath}"
           ],
           "options": {
-            "outputPath": "dist/apps/lambda",
-            "main": "apps/lambda/src/main.ts",
-            "tsConfig": "apps/lambda/tsconfig.app.json",
+            "outputPath": "dist/apps/lambda-api",
+            "main": "apps/lambda-api/src/main.ts",
+            "tsConfig": "apps/lambda-api/tsconfig.app.json",
             "assets": [
-              "apps/lambda/src/assets"
+              "apps/lambda-api/src/assets"
             ]
           },
           "configurations": {
@@ -154,8 +154,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/lambda/src/environments/environment.ts",
-                  "with": "apps/lambda/src/environments/environment.prod.ts"
+                  "replace": "apps/lambda-api/src/environments/environment.ts",
+                  "with": "apps/lambda-api/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -164,24 +164,24 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "lambda:build"
+            "buildTarget": "lambda-api:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/lambda/**/*.ts"
+              "apps/lambda-api/**/*.ts"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
           "outputs": [
-            "coverage/apps/lambda"
+            "coverage/apps/lambda-api"
           ],
           "options": {
-            "jestConfig": "apps/lambda/jest.config.js",
+            "jestConfig": "apps/lambda-api/jest.config.js",
             "passWithNoTests": true
           }
         }

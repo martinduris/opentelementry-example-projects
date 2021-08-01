@@ -1,15 +1,25 @@
 <header class="header">
   <div class="left">
     <div>
-<!--      <img alt="ECorp Logo" src="assets/images/logo/logo.png"/>-->
+      <img class="logo" alt="ECorp Logo" src="assets/images/logo/logo.png"/>
     </div>
     <div>
       <ul>
         <li>
-          <a class="-active" title="My Accounts" href="#">My Accounts</a>
+          <a class="-active" title="My accounts" href="#">My accounts</a>
         </li>
         <li>
-          <a title="Transactions" href="#">Transactions</a></li>
+          <a title="Transactions" href="#">Transactions</a>
+        </li>
+        <li>
+          <a title="Cards" href="#">Cards</a>
+        </li>
+        <li>
+          <a title="Loans" href="#">Loans</a>
+        </li>
+        <li>
+          <a title="Investments" href="#">Investments</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -41,86 +51,100 @@
     <mat-card>
       <mat-card-header></mat-card-header>
       <mat-card-content>
-        <button mat-raised-button color="primary" aria-label="Confirm Bank Transfer" name="Confirm Bank Transfer" (click)="confirmBankTransfer()">Transfer money</button>
+        <div>
+          <h1>Let`s do some transaction!</h1>
+
+          <div>
+            <form [formGroup]="newTransactionForm">
+              <mat-form-field>
+                <mat-label>Amount</mat-label>
+                <input type="text" matInput formControlName="amount">
+                <span matSuffix>€</span>
+              </mat-form-field>
+
+              <div>
+                <button mat-raised-button color="primary" aria-label="New Transaction submit" name="New Transaction submit"
+                  [disabled]="!newTransactionForm.valid"
+                  *ngIf="!newTransactionSending"
+                  (click)="newTransactionSubmit()"
+                >Send money!</button>
+                <div class="new-transactions-loading" *ngIf="newTransactionSending">
+                  <mat-progress-spinner [mode]="'indeterminate'" [diameter]="30" ></mat-progress-spinner>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
-    <mat-card>
+    <mat-card class="banner">
       <mat-card-header></mat-card-header>
-      <mat-card-content>Wanna some money?</mat-card-content>
+      <mat-card-content>
+        <div class="banner-content">
+          <h2>Wanna some money?</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacus risus, pellentesque pharetra euismod ut, sagittis molestie mi.
+            Donec facilisis, lacus vitae euismod dictum, erat turpis sodales ligula, mattis varius nunc lectus a mi.
+          </p>
+          <button mat-flat-button>Yes, i am interested!</button>
+        </div>
+        <div class="banner-image">
+          <img alt="Loan banner" src="assets/images/banner/loan.png"/>
+        </div>
+      </mat-card-content>
     </mat-card>
   </div>
 
   <div class="row">
-    <mat-card class="card-bank-account">
+    <mat-card class="card-bank-account" *ngFor="let account of accounts">
       <mat-card-content>
         <div class="account-header">
           <div class="left">
-            <span class="bank-name">Santander</span>
-            <span>86 **** **** 1748</span>
+            <span class="bank-name">{{getTitleForBank(account['bank'])}}</span>
+            <span class="mat-small account-number">{{account['accountNumber'] | creditCardMask}}</span>
           </div>
           <div class="right">
-            <mat-icon>account_balance</mat-icon>
+            <img class="logo" alt="ECorp Logo" [src]="getLogoForBank(account['bank'])"/>
           </div>
         </div>
-        <div class="balance">
-          <span>12 567,17 €</span>
+        <div class="account-balance">
+          <div>
+            <span>{{account['amount'] | currency: '€'}}</span>
+          </div>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="accountMenu" aria-label="Account Menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #accountMenu="matMenu">
+              <button mat-menu-item name="See transactions" (click)="loadTransactions(account)">
+                <mat-icon>sync_alt</mat-icon>
+                <span>See transactions</span>
+              </button>
+            </mat-menu>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card-bank-account">
-      <mat-card-content>
-        <div class="account-header">
-          <div class="left">
-            <span class="bank-name">Wells Fargo</span>
-            <span>12 **** **** 8745</span>
-          </div>
-          <div class="right">
-            <mat-icon>account_balance</mat-icon>
-          </div>
-        </div>
-        <div class="balance">
-          <span>78 123,17 €</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="card-bank-account">
-      <mat-card-content>
-        <div class="account-header">
-          <div class="left">
-            <span class="bank-name">City Bank</span>
-            <span>00 **** **** 8123</span>
-          </div>
-          <div class="right">
-            <mat-icon>account_balance</mat-icon>
-          </div>
-        </div>
-        <div class="balance">
-          <span>67,12 €</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="card-bank-account">
-      <mat-card-content>
-        <div class="account-header">
-          <div class="left">
-            <span class="bank-name">Deutsche Bank</span>
-            <span>23 **** **** 8845</span>
-          </div>
-          <div class="right">
-            <mat-icon>account_balance</mat-icon>
-          </div>
-        </div>
-        <div class="balance">
-          <span>10 2567,89 €</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  </div>
+  <div class="row justify-content-center">
+    <button mat-raised-button color="primary" aria-label="Load Accounts" name="Load Accounts"
+      *ngIf="!loadingAccounts"
+      (click)="loadAccounts()"
+    >Load Accounts</button>
+    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="30" *ngIf="loadingAccounts"></mat-progress-spinner>
   </div>
 
   <div class="row">
     <mat-card class="transactions">
       <mat-card-header></mat-card-header>
-      <mat-card-content>Transactions</mat-card-content>
+      <mat-card-content>
+        <div class="transactions-loading" *ngIf="loadingTransactions">
+          <mat-progress-spinner [mode]="'indeterminate'" [diameter]="30" ></mat-progress-spinner>
+        </div>
+        <div *ngIf="!loadingTransactions">
+          <p>Count of transactions {{transactions.length}}</p>
+        </div>
+      </mat-card-content>
     </mat-card>
     <mat-card class="to-do">
       <mat-card-header></mat-card-header>

@@ -1,3 +1,10 @@
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -6,13 +13,17 @@
   .left {
     display: flex;
     align-items: center;
+    .logo {
+      height: 40px;
+      margin-right: 45px; // TODO shared class
+    }
     ul {
       display: flex;
       padding: 0;
       li {
         list-style: none;
         &:not(:last-child) {
-          margin-right: 15px; // TODO shared class
+          margin-right: 30px; // TODO shared class
         }
         a {
           &.-active {
@@ -46,6 +57,30 @@
       margin-bottom: 30px; // TODO shared class
     }
 
+    .new-transactions-loading {
+      display: flex;
+      justify-content: center;
+    }
+
+    .banner {
+      background-color: #058373;
+      color: white;
+      mat-card-content {
+        display: flex;
+        p {
+          margin-bottom: 30px;
+        }
+        .banner-image {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          img {
+            width: 125px;
+            margin-left: 45px;
+          }
+        }
+      }
+    }
     .transactions {
       flex-grow: 3;
       width: auto;
@@ -72,17 +107,32 @@
         display: flex;
         flex-direction: column;
         .bank-name {
-          font-weight: bold;
+          font-weight: bold; // TODO shared class
         }
       }
       .right {
         display: flex;
         align-items: center;
+        margin-left: 30px; // TODO shared class
+        img {
+          width: 60px;
+        }
       }
     }
-    .balance {
+    .account-balance {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 15px; // TODO shared class
+      span {
+        font-weight: bold; // TODO shared class
+      }
     }
+  }
+
+  .transactions-loading {
+    display: flex;
+    justify-content: center;
   }
 }
 
