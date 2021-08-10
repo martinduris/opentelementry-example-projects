@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
       this.accounts = [];
       this.httpClient.get(`${environment.BANK_API_BASE}/account`).subscribe(data => {
         this.loadingAccounts = false;
-        this.accounts = data as any[]; // TODO openapi
+        this.accounts = (data as any[]).sort((a, b) => a.id > b.id ? 1 : -1); // TODO openapi
 
         if (this.accounts.length > 0) {
           this.loadTransactions(this.accounts[0]);

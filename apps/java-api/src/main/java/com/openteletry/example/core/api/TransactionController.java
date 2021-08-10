@@ -27,6 +27,13 @@ public class TransactionController {
     @PathVariable(name = "id") final Integer accountId
   ) {
     try {
+      if (accountId == 4) {
+        throw new ResponseStatusException(
+          HttpStatus.NOT_FOUND,
+          MessageFormat.format("Account {0} not found", accountId)
+        );
+      }
+
       final Account account = accountRepository.getById(accountId);
       return account.getTransactions();
     } catch (EntityNotFoundException e) {

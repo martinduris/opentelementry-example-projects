@@ -64,6 +64,8 @@
 
               <div>
                 <button mat-raised-button color="primary" aria-label="New Transaction submit" name="New Transaction submit"
+                  matTooltip="Insert NOT Number (e.g. 'abc') to trigger error - Core API - SQL error"
+                  matTooltipClass="opentelemetry-case-red"
                   [disabled]="!newTransactionForm.valid"
                   *ngIf="!newTransactionSending"
                   (click)="newTransactionSubmit()"
@@ -116,7 +118,34 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #accountMenu="matMenu">
-              <button mat-menu-item name="See transactions" (click)="loadTransactions(account)">
+              <!-- Load Transactions - OK -->
+              <button name="See transactions"
+                *ngIf="account['id'] !== 2 && account['id'] !== 4"
+                mat-menu-item
+                (click)="loadTransactions(account)"
+              >
+                <mat-icon>sync_alt</mat-icon>
+                <span>See transactions</span>
+              </button>
+              <!-- Load Transactions - ERROR, Secured API -->
+              <button name="See transactions"
+                *ngIf="account['id'] === 2"
+                mat-menu-item
+                matTooltip="Click to trigger error, Secured API - forbidden access, gateway blocked access"
+                matTooltipClass="opentelemetry-case-red"
+                (click)="loadTransactions(account)"
+              >
+                <mat-icon>sync_alt</mat-icon>
+                <span>See transactions</span>
+              </button>
+              <!-- Load Transactions - ERROR, CORE API -->
+              <button name="See transactions"
+                *ngIf="account['id'] === 4"
+                mat-menu-item
+                matTooltip="Click to trigger error, Core API - forbidden access, core API blocked access"
+                matTooltipClass="opentelemetry-case-red"
+                (click)="loadTransactions(account)"
+              >
                 <mat-icon>sync_alt</mat-icon>
                 <span>See transactions</span>
               </button>

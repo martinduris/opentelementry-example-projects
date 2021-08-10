@@ -30,8 +30,13 @@ app.get(`${environment.API_BASE}/account/:accountId/transaction`, (req, res) => 
   }
 
   fetch(`${environment.CORE_API_BASE}/account/${accountId}/transaction`)
-    .then((res: any) => res.json())
-    .then((data) => res.send(data));
+    .then((transactions: any) => {
+      if (transactions.status !== 200) {
+        return res.status(500).send({ 'error': 'Cannot load transactions!' });
+      }
+
+      transactions.json().then(data => { res.send(data) });
+    });
 });
 
 // API to create transaction for account

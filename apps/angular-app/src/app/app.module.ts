@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
@@ -38,7 +39,8 @@ import { ElasticRumService } from './services/elastic-rum.service';
       MatInputModule,
       MatMenuModule,
       MatProgressSpinnerModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatTooltipModule
     ],
   providers: [
     { provide: ErrorHandler, useClass: ElasticRumService }
