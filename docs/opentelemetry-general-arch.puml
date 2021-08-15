@@ -1,0 +1,66 @@
+@startuml
+
+'right to left direction
+top to bottom direction
+
+package "Instance #1" {
+
+  package Node [
+    Express
+    Instrumentation
+  ]
+
+  package Collector1 [
+  ]
+
+  [Node] -d-> [Collector1]
+}
+
+
+package "Instance #2" {
+
+  package VirtualMachine1 [
+    JVM
+    Spring
+    Instrumentation
+  ]
+
+  package Collector2 [
+  ]
+
+  [VirtualMachine1] -d-> [Collector2]
+}
+
+
+package "Instance #3" {
+
+  package VirtualMachine2 [
+    Python
+    Instrumentation
+  ]
+
+  package VirtualMachine3 [
+    Python
+    Instrumentation
+  ]
+
+  package Collector3 [
+  ]
+
+  [VirtualMachine2] -d-> [Collector3]
+  [VirtualMachine3] -d-> [Collector3]
+}
+
+
+package "Instance #4" {
+  component "Backend - Monitoring Tool"
+
+  [Collector1] -d-> [Backend - Monitoring Tool]
+  [Collector2] -d-> [Backend - Monitoring Tool]
+  [Collector3] -d-> [Backend - Monitoring Tool]
+}
+
+User -u-> [Backend - Monitoring Tool]
+
+
+@enduml

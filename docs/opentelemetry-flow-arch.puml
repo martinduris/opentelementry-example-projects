@@ -1,0 +1,33 @@
+@startuml
+
+package App #Thistle {
+
+  component APP #Yellow
+  component Api #Cyan
+  component SDK #Cyan
+  component Processors #Cyan
+  component Exporter #Cyan
+
+  APP -> Api
+  Api -> SDK
+  SDK -> Processors
+  Processors -> Exporter
+}
+
+package Collector #WhiteSmoke {
+  component C_Receivers #GreenYellow
+  component C_Processors #GreenYellow
+  component C_Exporter #GreenYellow
+
+  C_Receivers -> C_Processors
+  C_Processors -> C_Exporter
+}
+
+package MonitoringTool #Tomato {
+
+}
+
+Exporter -d-> C_Receivers
+C_Exporter -d-> MonitoringTool
+
+@enduml

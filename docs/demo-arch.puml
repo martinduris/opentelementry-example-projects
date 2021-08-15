@@ -1,0 +1,34 @@
+@startuml
+package "Frontend" {
+  [Internet Banking]
+
+  note left of [Internet Banking]
+    Angular application
+  end note
+}
+
+
+package "Middleware" {
+  [Security Gateway]
+
+  note left of [Security Gateway]
+    Node (express) API
+  end note
+}
+
+
+package "Backend" {
+  [Core Backend] -> PostgreSQL
+  database "PostgreSQL" {
+  }
+
+  note left of [Core Backend]
+    JAVA (spring) API
+  end note
+}
+
+
+User -d-> [Internet Banking]
+[Internet Banking] -d-> [Security Gateway]
+[Security Gateway] -d-> [Core Backend]
+@enduml
